@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<!--begin::Head-->
+	<head><base href="../">
+		<title>Home</title>
+		<meta charset="utf-8" />
+		<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
+		<link rel="shortcut icon" href="assets/media/logos/job-search.png" />
+		<!--begin::Fonts-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+		<!--end::Fonts-->
+		<!--begin::Page Vendor Stylesheets(used by this page)-->
+		<link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+		<!--end::Page Vendor Stylesheets-->
+		<!--begin::Global Stylesheets Bundle(used by all pages)-->
+		<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		
+		<!--end::Global Stylesheets Bundle-->
+	</head>
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body">
+		<!--begin::Main-->
+		<!--begin::Root-->
+		<div class="d-flex flex-column flex-root">
+			<!--begin::Page-->
+			<div class="page d-flex flex-row flex-column-fluid">
+				<!--begin::Aside-->
+				<div id="kt_aside" class="aside py-9" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_toggle">
+
+                	<?php include '../templet/logo.php';?>
+					<!--begin::Aside menu-->
+                    <?php include '../templet/aside_menu.php';?>
+                    <!--begin::Aside menu-->
+					<!--begin::Footer-->
+					<?php include '../user/user.php';?>
+					<!--end::Footer-->
+					
+				</div>
+				<!--end::Aside-->
+				<!--begin::Wrapper-->
+				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+					<!--begin::Header-->
+					<div id="kt_header" class="header">
+						<!--begin::Container-->
+						<div class="container d-flex flex-stack flex-wrap gap-2" id="kt_header_container">
+							<!--begin::Page title-->
+							<div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+								<!--begin::Heading-->
+								<h1 class="d-flex flex-column text-dark fw-bolder my-0 fs-1">Create Job Post</h1>
+								<!--end::Heading-->
+								<!--begin::Breadcrumb-->
+								<ul class="breadcrumb breadcrumb-dot fw-bold fs-base my-1">
+									<li class="breadcrumb-item text-muted">
+										<a href="dashboard" class="text-muted">Dashboard</a>
+									</li>
+									<li class="breadcrumb-item text-muted">Job Post</li>
+									<li class="breadcrumb-item text-dark">Create Job Post</li>
+								</ul>
+								<!--end::Breadcrumb-->
+							</div>
+							<!--end::Page title=-->
+							<!--begin::Wrapper-->
+							<div class="d-flex d-lg-none align-items-center ms-n2 me-2">
+								<!--begin::Aside mobile toggle-->
+								<div class="btn btn-icon btn-active-icon-primary" id="kt_aside_toggle">
+									<!--begin::Svg Icon | path: icons/duotune/abstract/abs015.svg-->
+									<span class="svg-icon svg-icon-1 mt-1">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="currentColor" />
+											<path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="currentColor" />
+										</svg>
+									</span>
+									<!--end::Svg Icon-->
+								</div>
+								<!--end::Aside mobile toggle-->
+								<!--begin::Logo-->
+								<a href="../../demo3/dist/index.html" class="d-flex align-items-center">
+									<img alt="Logo" src="assets/media/logos/logo-demo3-default.svg" class="h-20px" />
+								</a>
+								<!--end::Logo-->
+							</div>
+							<!--end::Wrapper-->
+						</div>
+						<!--end::Container-->
+					</div>
+					<!--end::Header-->
+					<!--begin::Content-->
+					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+						<!--begin::Container-->
+						<div class="container-xxl" id="kt_content_container">
+							<!--begin::Form-->
+							<form action="job_post/backend_job.php" method="get" class="row g-3">
+								<input type="hidden" name="create_job_post" value="1">
+								<div class="col-12">
+									<label for="inputJobTitle" class="form-label">Job Title</label>
+									<input name="jobTitle" type="text" class="form-control" id="JobTitle" placeholder="xyz job" >
+								</div>
+
+								<div class="col-12">
+									<label for="inputCompanyName" class="form-label">Company Name</label>
+									<!--begin::Select-->
+									<select name="add_company_name" class="form-select" data-placeholder="Select a company name" id="company_select">
+										<option value="">Select a company name</option>
+										<?php
+										include '..\db_connect\db_connect.php';
+										// Fetch company names from the database and populate the options
+										$sql = "SELECT company_id, company_name FROM companies";
+										$result = $conn->query($sql);
+										if ($result->num_rows > 0) {
+											while ($row = $result->fetch_assoc()) {
+												echo "<option value='" . $row["company_id"] . "'>" . $row["company_name"] . "</option>";
+											}
+										}
+										?>
+									</select>
+									<!--end::Select-->
+									<div class="form-text">Select the company for which the job is being posted.</div>
+								</div>
+
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Location</label>
+									<textarea name="location" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+									<div class="form-text">Enter location of the job.</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="inputJobTitle" class="form-label">Workplace Type</label>
+									<select name="workplaceType" class="form-select" aria-label="Default select example">
+										<option selected>Choose the workplace type</option>
+										<option value="On-site">On-site</option>
+										<option value="Hybrid">Hybrid</option>
+										<option value="Remote">Remote</option>
+									</select>
+									<div class="form-text">Select the type of workplace for the job.</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="inputJobTitle" class="form-label">Job Type</label>
+									<select name="jobType" class="form-select" aria-label="Default select example">
+										<option selected>Choose the job type</option>
+										<option value="Government">Government</option>
+										<option value="Private">Private</option>
+										<option value="International">International</option>
+									</select>
+									<div class="form-text">Select the type of job.</div>
+								</div>
+
+								<label for="basic-url" class="form-label">Salary</label>
+								<div class="input-group mb-3">
+									<input name="salary" type="text" class="form-control" aria-label="Amount (to the nearest taka)">
+								</div>
+								<div class="form-text">Enter the salary amount for the job.</div>
+
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Job Description</label>
+									<textarea name="jobDescription" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+									<div class="form-text">Enter the description of the job.</div>
+								</div>
+
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Job Responsibilites</label>
+									<textarea name="jobResponsibilites" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+									<div class="form-text">Enter the responsibilities associated with the job.</div>
+								</div>
+
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Job Requirement</label>
+									<textarea name="jobRequirement" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+									<div class="form-text">Enter the requirements for the job.</div>
+								</div>
+
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Additional Requirement</label>
+									<textarea name="additionalRequirement" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+									<div class="form-text">Enter any additional requirements for the job.</div>
+								</div>
+
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Additional Information</label>
+									<textarea name="additional_info" class="form-control" id="additional_info" rows="3"></textarea>
+									<div class="form-text">Enter any additional information for the job.</div>
+								</div>
+
+								<div class="col-12">
+									<label for="inputJobTitle" class="form-label">Vacancies</label>
+									<input name="vacancies" type="text" class="form-control" id="JobTitle" placeholder="">
+									<div class="form-text">Enter the number of vacancies available for the job.</div>
+								</div>
+								
+								<div class="col-md-6">
+									<label for="inputJobTitle" class="form-label">Employment Type</label>
+									<select name ="employmentType"class="form-select" aria-label="Default select example">
+									<option selected>Choose employment type</option>
+										<option value="Full-time">Full-time</option>
+										<option value="Part-time">Part-time</option>
+										<option value="Contract">Contract</option>
+										<option value="Project Based">Project Based</option>
+										<option value="Volunteer">Volunteer</option>
+										<option value="Internship">Internship</option>
+										<option value="Research and Development">Research and Development</option>
+										<option value="Other">Other</option>
+									</select>
+									<div class="form-text">Select the type of employment offered for this job.</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputJobTitle" class="form-label">Gender</label>
+									<select name="gender" class="form-select" aria-label="Default select example">
+										<option selected>Open this select grnder</option>
+										<option value="Male">Male</option>
+										<option value="Femal">Femal</option>
+										<option value="Both">Both</option>
+									</select>
+									<div class="form-text">Specify the gender preference for this job.</div>
+								</div>
+
+								<div class="col-12">
+									<label for="inputJobTitle" class="form-label">Education Level</label>
+									<input name="education" type="text" class="form-control" id="JobTitle" placeholder="">
+									<div class="form-text">Enter the Education Level for the job.</div>
+								</div>
+
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Experience</label>
+									<textarea name="experience" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+									<div class="form-text">Enter the required experience for this job.</div>
+								</div>
+
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Benifits</label>
+									<textarea name="benifits" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+									<div class="form-text">List the benefits provided for this job.</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputDate" class="form-label">Deadline</label>
+									<input name="deadline" type="date" class="form-control" id="inputZip">
+									<div class="form-text">Specify the deadline for applications.</div>
+								</div>
+
+								<!--begin::Input group-->
+								<div class="col-md-6">
+									<!--begin::Label-->
+									<label class="required form-label">Publish Status</label>
+									<!--end::Label-->
+									<!--begin::Select-->
+									<select name="add_publish_status" class="form-select mb-2" data-placeholder="Select status">
+										<option value="">Select status</option>
+										<option value="published">Published</option>
+										<option value="unpublished">Unpublished</option>
+									</select>
+									<!--end::Select-->
+									<!--begin::Description-->
+									<div class="text-muted fs-7">Select whether the company should be published or unpublished.</div>
+									<!--end::Description-->
+								</div>
+								<!--end::Input group-->
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Read Before Apply</label>
+									<textarea name="readBeforeApply" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+									<div class="form-text">Provide any specific instructions or information applicants should read before applying.</div>
+								</div>
+
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Evaluation Type</label>
+									<div class="row">
+										<div class="col-md-4">
+										<div class="form-check form-check-inline">
+											<label><input type="checkbox" name="quiz" value="1"> Quiz</label>
+										</div>
+										</div>
+										<div class="col-md-4">
+										<div class="form-check form-check-inline">
+											<label><input type="checkbox" name="online_interview" value="1"> Online Interview</label>
+										</div>
+										</div>
+										<div class="col-md-4">
+										<div class="form-check form-check-inline">
+											<label><input type="checkbox" name="offline_interview" value="1"> Offline Interview</label>
+										</div>
+										</div>
+									</div>
+									<div class="form-text">Select the methods through which applicants will be evaluated: quiz, online interview, offline interview.</div>
+								</div>
+
+								
+								<button type="submit" class="btn btn-primary">Submit</button>
+
+
+							</form>
+							<!--end::Form-->
+						</div>
+						<!--end::Container-->
+					</div>
+					<!--end::Content-->
+					<!--begin::Footer-->
+                    <?php include '../templet/footer.php';?>
+					<!--end::Footer-->
+				</div>
+				<!--end::Wrapper-->
+			</div>
+            </div>
+			<!--end::Page-->
+		</div>
+
+		<!--end::Root-->
+		<!--begin::Scrolltop-->
+		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+			<!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+			<span class="svg-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="currentColor" />
+					<path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="currentColor" />
+				</svg>
+			</span>
+			<!--end::Svg Icon-->
+		</div>
+		<!--end::Scrolltop-->
+		<!--begin::Javascript-->
+		<script>var hostUrl = "assets/";</script>
+		<!--begin::Global Javascript Bundle(used by all pages)-->
+		<script src="assets/plugins/global/plugins.bundle.js"></script>
+		<script src="assets/js/scripts.bundle.js"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Page Vendors Javascript(used by this page)-->
+		<script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+		<script src="assets/plugins/custom/formrepeater/formrepeater.bundle.js"></script>
+		<!--end::Page Vendors Javascript-->
+		<!--begin::Page Custom Javascript(used by this page)-->
+		<script src="assets/js/custom/apps/ecommerce/catalog/save-product.js"></script>
+		<script src="assets/js/widgets.bundle.js"></script>
+		<script src="assets/js/custom/widgets.js"></script>
+		<script src="assets/js/custom/apps/chat/chat.js"></script>
+		<script src="assets/js/custom/utilities/modals/users-search.js"></script>
+		<!--end::Page Custom Javascript-->
+		<!-- Include Select2 JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+		<script>
+			$(document).ready(function() {
+				$('#company_select').select2({
+					placeholder: "Select a company name",
+					allowClear: true // This will allow the user to clear the selection
+				});
+			});
+		</script>
+	</body>
+	<!--end::Body-->
+</html>
